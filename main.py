@@ -1,6 +1,6 @@
 from flask_socketio import SocketIO, send
 from application import create_app
-
+from application.tools.message_uploader import upload_message
 
 app = create_app()
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -11,6 +11,8 @@ def handle_message(message):
     print(f"Received message: {message}")
     if message != "User connected!":
         send(message, broadcast=True)
+        user, message = message.split(":")
+        upload_message(user, message[1:])
 
     socketio.emit('message response:', message)
 
