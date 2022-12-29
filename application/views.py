@@ -16,21 +16,14 @@ DB_URI = "postgresql://postgres:postgres@localhost:5432/postgres"
 
 @view.route("/")
 def home():
-    print(current_user, current_user.is_authenticated)
     if current_user.is_authenticated:
         return redirect(url_for("views.chat"))
     else:
         return redirect(url_for("views.login"))
 
 
-@view.route("/chat", methods=["GET", "POST"])
+@view.route("/chat")
 def chat():
-    if request.method == "POST":
-        message = request.form.get("message")
-        user = request.form.get("username")
-        print(message, user)
-        # upload_message(user, message[1:])
-
     return render_template("chat.html")
 
 
@@ -38,7 +31,7 @@ def chat():
 def login():
 
     if current_user.is_authenticated:
-        return redirect(url_for("views.chat"))
+        return redirect(url_for("views.home"))
 
     if request.method == "POST":
         user, message = login_procedure(request.form, DB_URI)
