@@ -11,8 +11,8 @@ $(document).ready(function () {
 
    $('#sendBtn').on('click', function () {
        if ($('#message').val() !== '') {
-           socket.send($('#username').val() + ': ' + $('#message').val());
-           socket.emit($('#username').val() + ': ' + $('#message').val());
+           socket.send($('#username').text() + ': ' + $('#message').val());
+           socket.emit($('#username').text() + ': ' + $('#message').val());
            $('#message').val('');
        }
    });
@@ -20,8 +20,8 @@ $(document).ready(function () {
    $('#message').on('keypress', function (event) {
        if (event.key === 'Enter') {
             if ($('#message').val() !== '') {
-                socket.send($('#username').val() + ': ' + $('#message').val());
-                socket.emit($('#username').val() + ': ' + $('#message').val());
+                socket.send($('#username').text() + ': ' + $('#message').val());
+                socket.emit($('#username').text() + ': ' + $('#message').val());
                 $('#message').val('');
             }
        }
