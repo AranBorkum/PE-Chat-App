@@ -1,21 +1,33 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, send
 
-app = Flask(__name__)
-app.config["SECRET"] = "secret_key"
-socketio = SocketIO(app, cors_allowed_origins="*")
+from application import create_app
 
+# app = Flask(__name__)
+# app.config["SECRET"] = "secret_key"
+# socketio = SocketIO(app, cors_allowed_origins="*")
+#
+#
+# @socketio.on("message")
+# def handle_message(message):
+#     print(f"Received message: {message}")
+#     if message != "User connected!":
+#         send(message, broadcast=True)
+#
+#
+# @app.route("/")
+# def index():
+#     return render_template("index.html")
+
+
+app = create_app()
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 @socketio.on("message")
 def handle_message(message):
     print(f"Received message: {message}")
     if message != "User connected!":
         send(message, broadcast=True)
-
-
-@app.route("/")
-def index():
-    return render_template("index.html")
 
 
 if __name__ == "__main__":
