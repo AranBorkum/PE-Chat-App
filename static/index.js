@@ -6,6 +6,7 @@ $(document).ready(function () {
 
    socket.on('message', function (data) {
        $('#messages').append($('<p>').text(data));
+       scrollSmoothToBottom('messages')
    });
 
    $('#sendBtn').on('click', function () {
@@ -13,3 +14,13 @@ $(document).ready(function () {
        $('#message').val('');
    });
 });
+
+function scrollSmoothToBottom(id) {
+  var div = document.getElementById(id);
+  $("#" + id).animate(
+    {
+      scrollTop: div.scrollHeight - div.clientHeight,
+    },
+    500
+  );
+}
