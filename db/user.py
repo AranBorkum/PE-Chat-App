@@ -1,6 +1,7 @@
 from typing import Any
 
 import sqlalchemy as sa
+from flask_login import UserMixin
 from sqlalchemy import func
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -9,7 +10,7 @@ from db.base import Base
 DB_URI = "postgresql://postgres:postgres@localhost:5432/postgres"
 
 
-class User(Base):
+class User(UserMixin, Base):
 
     __tablename__ = "main_users"
     id = sa.Column(sa.Integer, primary_key=True)
@@ -39,18 +40,6 @@ class User(Base):
 
     def verify_password(self, password):
         return check_password_hash(self.password, password)
-
-    @staticmethod
-    def is_authenticated():
-        return True
-
-    @staticmethod
-    def is_active():
-        return True
-
-    @staticmethod
-    def is_anonymous():
-        return False
 
     def get_id(self):
         return str(self.id)
