@@ -4,13 +4,14 @@ $(document).ready(function () {
         socket.send('User connected!');
    });
 
-   socket.on('message', function (data) {
-       $('#messages').append($('<p>').text(data));
-       scrollSmoothToBottom('messages')
+   socket.on('message', async function (data) {
+       await $('#messages').append($('<p>').text(data));
+       await scrollSmoothToBottom('messages')
    });
 
    $('#sendBtn').on('click', function () {
        socket.send($('#username').val() + ': ' + $('#message').val());
+       socket.emit($('#username').val() + ': ' + $('#message').val());
        $('#message').val('');
    });
 });
