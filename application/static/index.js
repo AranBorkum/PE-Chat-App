@@ -1,5 +1,5 @@
 $(document).ready(function () {
-   var socket = io.connect('http://127.0.0.1:5000')
+   var socket = io.connect('http://192.168.0.2:5000')
    socket.on('connect', function () {
         socket.send('User connected!');
    });
@@ -9,23 +9,16 @@ $(document).ready(function () {
        await scrollSmoothToBottom('messages')
    });
 
-   $('#sendBtn').on('click', function () {
-       if ($('#message').val() !== '') {
-           socket.send($('#username').text() + ': ' + $('#message').val());
-           socket.emit($('#username').text() + ': ' + $('#message').val());
-           $('#message').val('');
-       }
-   });
+   $('form#messageForm').on('submit', function (event) {
+       let message_input = document.getElementById('message');
+       let username = document.getElementById('username')
 
-   $('#message').on('keypress', function (event) {
-       if (event.key === 'Enter') {
-            if ($('#message').val() !== '') {
-                socket.send($('#username').text() + ': ' + $('#message').val());
-                socket.emit($('#username').text() + ': ' + $('#message').val());
-                $('#message').val('');
-            }
-       }
-   });
+       socket.send(username.innerText + ': ' + message_input.value);
+       socket.emit(username.innerText + ': ' + message_input.value);
+       message_input.value = '';
+
+   })
+
 });
 
 function scrollSmoothToBottom(id) {
