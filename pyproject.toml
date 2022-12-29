@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "pe-chat-app"
+version = "0.1.0"
+description = ""
+authors = ["Aran Borkum <aranborkum@hotmail.com>"]
+readme = "README.md"
+packages = [{include = "pe_chat_app"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+flask = "^2.2.2"
+flask-socketio = "^5.3.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
