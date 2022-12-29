@@ -10,16 +10,20 @@ $(document).ready(function () {
    });
 
    $('#sendBtn').on('click', function () {
-       socket.send($('#username').val() + ': ' + $('#message').val());
-       socket.emit($('#username').val() + ': ' + $('#message').val());
-       $('#message').val('');
+       if ($('#message').val() !== '') {
+           socket.send($('#username').val() + ': ' + $('#message').val());
+           socket.emit($('#username').val() + ': ' + $('#message').val());
+           $('#message').val('');
+       }
    });
 
    $('#message').on('keypress', function (event) {
        if (event.key === 'Enter') {
-          socket.send($('#username').val() + ': ' + $('#message').val());
-           socket.emit($('#username').val() + ': ' + $('#message').val());
-           $('#message').val('');
+            if ($('#message').val() !== '') {
+                socket.send($('#username').val() + ': ' + $('#message').val());
+                socket.emit($('#username').val() + ': ' + $('#message').val());
+                $('#message').val('');
+            }
        }
    });
 });

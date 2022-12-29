@@ -14,5 +14,6 @@ def handle_message(message):
 
     socketio.emit('message response:', message)
 
+
 if __name__ == "__main__":
     socketio.run(app, host="localhost", debug=True, allow_unsafe_werkzeug=True)
