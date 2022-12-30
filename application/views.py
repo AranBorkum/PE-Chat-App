@@ -1,13 +1,20 @@
 import datetime
 
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from flask_login import login_user, current_user, LoginManager, login_manager, logout_user
+from flask_login import (
+    login_user,
+    current_user,
+    LoginManager,
+    login_manager,
+    logout_user,
+)
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
 from application.tools.login_tools import login_procedure
 from application.tools.registration_tools import create_new_user
 from config import get_values
+from db.messages import Message
 from db.user import User
 
 view = Blueprint("views", __name__)
@@ -25,13 +32,7 @@ def home():
 
 @view.route("/chat", methods=["GET", "POST"])
 def chat():
-    if request.method == "POST":
-        message = request.form.get("message")
-        user = request.form.get("username")
-        print(message, user)
-        # upload_message(user, message[1:])
-
-    return render_template("chat.html")
+    return render_template("chat.html", **{"history": get_history()})
 
 
 @view.route("/login", methods=["POST", "GET"])
@@ -51,7 +52,7 @@ def login():
     return render_template("login.html")
 
 
-@view.route('/register', methods=["GET", "POST"])
+@view.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
         if request.form:
@@ -64,7 +65,18 @@ def register():
     return render_template("register.html")
 
 
-@view.route('/logout')
+@view.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for('views.home'))
+    return redirect(url_for("views.home"))
+
+
+@view.route("/get_history")
+def get_history(n_messages=100):
+    with Session(create_engine(DB_URI)) as sql_session:
+        return [
+            (i.send_user.username, i.message)
+            for i in sql_session.query(Message)
+            .order_by(Message.time_sent)
+            .limit(n_messages)
+        ]

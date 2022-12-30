@@ -11,9 +11,10 @@ def handle_message(message):
     print(f"Received message: {message}")
     if message != "User connected!":
         send(message, broadcast=True)
+        user, message = message.split(":")
+        upload_message(user, message[1:])
 
-
-    socketio.emit('message response:', message)
+    socketio.emit("message response:", message)
 
 
 if __name__ == "__main__":

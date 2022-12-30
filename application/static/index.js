@@ -16,8 +16,10 @@ $(document).ready(function () {
        socket.send(username.innerText + ': ' + message_input.value);
        socket.emit(username.innerText + ': ' + message_input.value);
        message_input.value = '';
-
    })
+
+   var messageBox = document.getElementById('messages');
+   messageBox.scrollTop = messageBox.scrollHeight;
 
 });
 
@@ -30,3 +32,16 @@ function scrollSmoothToBottom(id) {
     500
   );
 }
+
+function getData(form) {
+    var formData = new FormData(form);
+    for (var pair of formData.entries()) {
+        console.log(pair[0] + ": " + pair[1]);
+    }
+}
+
+document.getElementById('messageForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    getData(e.target);
+})
+
