@@ -28,6 +28,8 @@ def home():
 
 @view.route("/chat", methods=["GET", "POST"])
 def chat():
+    if request.method == "POST":
+        print(request.form)
     return render_template("chat.html", **{"history": get_history()})
 
 

@@ -44,4 +44,3 @@ document.getElementById('messageForm').addEventListener('submit', function (e) {
     e.preventDefault();
     getData(e.target);
 })
-
