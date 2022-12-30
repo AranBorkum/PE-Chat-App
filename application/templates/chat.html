@@ -31,15 +31,30 @@
 
 <div class="container">
     <div id="messages" class="overflow-auto msgs" style="overflow-y: scroll; height: 500px;">
-
+        {% for message in history %}
+            <p>{{ message[0]}}: {{ message[1] }}</p>
+        {% endfor %}
     </div>
 
-    <div class="input-group mb-3">
-        <p hidden id="username">{{ current_user.username }}</p>
-        <input class="form-control" type="text" id="message" placeholder={{ current_user.username }}>
-        <div class="input-group-append">
-            <button class="btn btn-success" id="sendBtn" type="submit">Send</button>
+
+
+    <form id="messageForm" action="" method="POST" style="bottom: 0; margin: 0 0 0 0;">
+        <div class="input-group mb-3">
+            <p hidden id="username">{{ current_user.username }}</p>
+            <input class="form-control" type="text" id="message" placeholder={{ current_user.username }}>
+            <div class="input-group-append">
+                <button class="btn btn-success" id="sendBtn" type="submit">Send</button>
+            </div>
         </div>
-    </div>
+    </form>
+
+<!--    <div class="input-group mb-3">-->
+<!--        <p hidden id="username">{{ current_user.username }}</p>-->
+<!--        <input class="form-control" type="text" id="message" placeholder={{ current_user.username }}>-->
+<!--        <div class="input-group-append">-->
+<!--            <button class="btn btn-success" id="sendBtn" type="submit">Send</button>-->
+<!--        </div>-->
+<!--    </div/>-->
+
 </div>
 {% endblock %}

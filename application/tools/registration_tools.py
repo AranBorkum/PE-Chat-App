@@ -17,6 +17,9 @@ def create_new_user(form, db_uri):
         if not username:
             return False, "Please provide a username."
 
+        if " " in username:
+            return False, "Username cannot contain spaces"
+
         if session.query(User).filter(User.username == username).count():
             return False, "Username already in use."
 

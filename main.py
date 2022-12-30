@@ -14,8 +14,8 @@ def handle_message(message):
         user, message = message.split(":")
         upload_message(user, message[1:])
 
-    socketio.emit('message response:', message)
+    socketio.emit("message response:", message)
 
 
 if __name__ == "__main__":
-    socketio.run(app, host="localhost", debug=True, allow_unsafe_werkzeug=True)
+    socketio.run(app, host="192.168.0.2", debug=True, allow_unsafe_werkzeug=True)
