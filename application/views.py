@@ -4,8 +4,6 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import (
     login_user,
     current_user,
-    LoginManager,
-    login_manager,
     logout_user,
 )
 from sqlalchemy import create_engine
@@ -13,9 +11,7 @@ from sqlalchemy.orm import Session
 
 from application.tools.login_tools import login_procedure
 from application.tools.registration_tools import create_new_user
-from config import get_values
 from db.messages import Message
-from db.user import User
 
 view = Blueprint("views", __name__)
 DB_URI = "postgresql://postgres:postgres@localhost:5432/postgres"
