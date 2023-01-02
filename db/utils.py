@@ -2,11 +2,11 @@ import os
 from typing import MutableMapping, Type, Union
 from urllib.parse import quote_plus
 
+import config
 from sqlalchemy import create_engine
 from sqlalchemy.future import Engine
 from sqlalchemy.orm import Session
 
-import config
 from db import messages, user
 from db.base import Base
 

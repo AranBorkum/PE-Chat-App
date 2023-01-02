@@ -1,8 +1,8 @@
+from config import Config
 from flask_socketio import SocketIO, send
 
 from application import create_app
 from application.tools.message_uploader import upload_message
-from config import Config
 
 app = create_app()
 socketio = SocketIO(app, cors_allowed_origins="*")
