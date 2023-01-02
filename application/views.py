@@ -11,10 +11,11 @@ from sqlalchemy.orm import Session
 
 from application.tools.login_tools import login_procedure
 from application.tools.registration_tools import create_new_user
+from config import Config
 from db.messages import Message
 
 view = Blueprint("views", __name__)
-DB_URI = "postgresql://postgres:postgres@localhost:5432/postgres"
+DB_URI = Config.DB_URI
 
 
 @view.route("/")
