@@ -3,7 +3,7 @@ from typing import Any
 import sqlalchemy as sa
 from flask_login import UserMixin
 from sqlalchemy import func
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from db.base import Base
 
