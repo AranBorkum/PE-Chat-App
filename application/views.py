@@ -1,11 +1,7 @@
 import datetime
 
-from flask import Blueprint, render_template, request, flash, redirect, url_for
-from flask_login import (
-    login_user,
-    current_user,
-    logout_user,
-)
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_user, logout_user
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
@@ -15,6 +11,7 @@ from db.messages import Message
 
 view = Blueprint("views", __name__)
 DB_URI = "postgresql://postgres:postgres@localhost:5432/postgres"
+LOGIN_TIME = datetime.timedelta(hours=1)
 
 
 @view.route("/")
@@ -43,7 +40,7 @@ def login():
         user, message = login_procedure(request.form, DB_URI)
 
         if user is not None:
-            login_user(user, remember=True, duration=datetime.timedelta(hours=1))
+            login_user(user, remember=True, duration=LOGIN_TIME)
             flash("Logged in successfully.")
             return redirect(url_for("views.chat"))
 

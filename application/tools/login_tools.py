@@ -1,4 +1,3 @@
-from flask_login import login_manager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
@@ -16,7 +15,7 @@ def login_procedure(form, db_uri):
         return None, "Please enter a valid password"
 
     with Session(create_engine(db_uri)) as session:
-        user = session.query(User).filter(User.email_address == email_address).first()
+        user = User.get_user_by_email_address(session, email_address)
 
         if not user:
             return None, "Invalid username or password."

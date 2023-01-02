@@ -23,7 +23,7 @@ def create_new_user(form, db_uri):
         if not email_address:
             return False, "Please provide an email address."
 
-        if session.query(User).filter(User.email_address == email_address).count():
+        if User.get_user_by_email_address(session, email_address).count():
             return False, "Email address already in use."
 
         if not date_of_birth:

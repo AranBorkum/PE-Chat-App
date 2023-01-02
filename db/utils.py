@@ -1,5 +1,5 @@
 import os
-from typing import MutableMapping, Union, Type
+from typing import MutableMapping, Type, Union
 from urllib.parse import quote_plus
 
 from sqlalchemy import create_engine
@@ -7,8 +7,8 @@ from sqlalchemy.future import Engine
 from sqlalchemy.orm import Session
 
 import config
+from db import messages, user
 from db.base import Base
-from db import user, messages
 
 ALL_MODULES_WITH_MODELS = [
     user,
@@ -50,13 +50,20 @@ class EngineFactory:
         port: Union[int, str],
         dbname: str
     ) -> str:
-        db_uri = "{driver}://{username}:{password}@{host}:{port}/{dbname}".format(
-            driver=driver,
-            username=username,
-            password=quote_plus(password),
-            host=host,
-            port=port,
-            dbname=dbname,
+        db_uri = (
+            "{driver}://"
+            "{username}:"
+            "{password}@"
+            "{host}:"
+            "{port}/"
+            "{dbname}".format(
+                driver=driver,
+                username=username,
+                password=quote_plus(password),
+                host=host,
+                port=port,
+                dbname=dbname,
+            )
         )
 
         return db_uri

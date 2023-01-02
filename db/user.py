@@ -1,9 +1,8 @@
 from typing import Any
 
-import sqlalchemy as sa
 from flask_login import UserMixin
-from sqlalchemy import func
-from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy import Column, Date, DateTime, Integer, String, func
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from db.base import Base
 
@@ -13,12 +12,12 @@ DB_URI = "postgresql://postgres:postgres@localhost:5432/postgres"
 class User(UserMixin, Base):
 
     __tablename__ = "main_users"
-    id = sa.Column(sa.Integer, primary_key=True)
-    username = sa.Column(sa.String, nullable=False)
-    email_address = sa.Column(sa.String)
-    date_of_birth = sa.Column(sa.Date)
-    password = sa.Column(sa.String)
-    date_created = sa.Column(sa.DateTime(timezone=True), server_default=func.now())
+    id = Column(Integer, primary_key=True)
+    username = Column(String, nullable=False)
+    email_address = Column(String)
+    date_of_birth = Column(Date)
+    password = Column(String)
+    date_created = Column(DateTime(timezone=True), server_default=func.now())
 
     def __init__(
         self,
@@ -43,3 +42,8 @@ class User(UserMixin, Base):
 
     def get_id(self):
         return str(self.id)
+
+    @staticmethod
+    def get_user_by_email_address(session, email_address):
+        users = session.query(User).filter(User.email_address == email_address)
+        return users.first()
