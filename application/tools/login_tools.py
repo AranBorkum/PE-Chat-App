@@ -1,4 +1,3 @@
-from flask_login import login_manager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 

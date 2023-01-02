@@ -16,6 +16,8 @@ config-py = "^0.1.1"
 psycopg2 = "^2.9.5"
 black = "^22.12.0"
 flask-login = "^0.6.2"
+isort = "^5.11.4"
+flake8 = "^6.0.0"
 
 
 [build-system]
