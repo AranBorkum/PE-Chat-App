@@ -1,7 +1,7 @@
+from config import Config
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
-from config import Config
 from db.messages import Message
 from db.user import User
 
