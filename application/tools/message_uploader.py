@@ -1,10 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
+from config import Config
 from db.messages import Message
 from db.user import User
 
-DB_URI = "postgresql://postgres:postgres@localhost:5432/postgres"
+DB_URI = Config.DB_URI
 
 
 def upload_message(user, message):

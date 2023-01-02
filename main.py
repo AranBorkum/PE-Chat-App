@@ -2,6 +2,7 @@ from flask_socketio import SocketIO, send
 
 from application import create_app
 from application.tools.message_uploader import upload_message
+from config import Config
 
 app = create_app()
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -25,4 +26,4 @@ def handle_message(message) -> None:
 
 
 if __name__ == "__main__":
-    socketio.run(app, host="localhost", debug=True, allow_unsafe_werkzeug=True)
+    socketio.run(app, host=Config.SITE_HOST, debug=True, allow_unsafe_werkzeug=True)
