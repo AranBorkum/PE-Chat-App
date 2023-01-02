@@ -1,7 +1,7 @@
 # PyLint
 # Run PyLint linting on all python files to enforce PEP8 and make aware of 'code smells'
 
-name: Flake8
+name: PyLint
 
 on:
   push:
