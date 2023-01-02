@@ -1,0 +1,41 @@
+# Flake8
+# Run flake8 linting on all python files to enforce PEP8 and make aware of 'code smells'
+
+name: Flake8
+
+on:
+  push:
+    paths:
+      - '*.py'
+      - '*.pyi'
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test-code-formatting:
+    runs-on: ubuntu-latest
+
+    steps:
+      #----------------------------------------------
+      #       check-out repo and set-up python
+      #----------------------------------------------
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Set up python
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      #----------------------------------------------
+      #--------------  install Flake8  --------------
+      #----------------------------------------------
+      - name: Install Flake8
+        run: pip install flake8 flake8-pyproject
+
+      #----------------------------------------------
+      #                run action
+      #----------------------------------------------
+      - name: Run Flake8
+        run: |
+          flake8

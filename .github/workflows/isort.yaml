@@ -1,0 +1,41 @@
+# iSort
+# Ensures all imports are collected properly and organised
+
+name: iSort
+
+on:
+  push:
+    paths:
+      - '*.py'
+      - '*.pyi'
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test-import-ordering:
+    runs-on: ubuntu-latest
+
+    steps:
+      #----------------------------------------------
+      #       check-out repo and set-up python
+      #----------------------------------------------
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Set up python
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      #----------------------------------------------
+      #--------------  install iSort  ---------------
+      #----------------------------------------------
+      - name: Install iSort
+        run: pip install isort
+
+      #----------------------------------------------
+      #                run action
+      #----------------------------------------------
+      - name: Run iSort
+        run: |
+          isort . --check-only
